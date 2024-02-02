@@ -5,8 +5,10 @@ const connectDB = require("./db/connect");
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const user_routes = require("./routes/users");
+const organization_routes = require("./routes/organizations")
 
 app.use("/api/user", user_routes);
+app.use("/api/organization", organization_routes);
 
 const start = async() => {
     try {
