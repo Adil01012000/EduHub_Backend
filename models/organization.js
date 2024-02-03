@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const organizationSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     organization_name: {
         type: String,
         required: true,
@@ -25,15 +20,12 @@ const organizationSchema = new mongoose.Schema({
     organization_phone: {
         type: String,
         required: true,
-        validate: {
-            validator: (value) => /^\d{10}$/g.test(value),
-            message: "Invalid phone number format",
-        },
+        maxlength: 50,
     },
     organization_password: {
         type: String,
         required: true,
-        maxlength: 50, 
+        maxlength: 100, 
     },
     created_at: {
         type: Date,

@@ -1,17 +1,30 @@
 const Organization = require("../models/organization");
+const bcrypt = require('bcrypt');
 
 // POST organization api
 const registerOrganization = async (req, res) => {
     try {
-        const maxIdOrganization = await Organization.findOne({}, { id: 1 }, { sort: { id: -1 } });
-        const newOrganizationId = maxIdOrganization ? maxIdOrganization.id + 1 : 1;
+        const { organization_name, organization_email, organization_phone, organization_password } = req.body;
 
-        const organization = await Organization.create({ ...req.body, id: newOrganizationId });
+        const existingOrganization = await Organization.findOne({ organization_email });
+        if (existingOrganization) {
+            return res.status(400).json({ message: 'Email already exists.' });
+        }
 
-        res.status(200).json({ message: "Organization created successfully", organization });
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(organization_password, saltRounds);
+
+        const organization = await Organization.create({
+            organization_name,
+            organization_email,
+            organization_phone,
+            organization_password: hashedPassword,
+        });
+
+        res.status(200).json({ message: 'Organization created successfully', organization });
     } catch (error) {
         if (error.code === 11000 || error.code === 11001) {
-            res.status(400).json({ message: "Duplicate entry. Organization already exists." });
+            res.status(400).json({ message: 'Duplicate entry. Organization already exists.' });
         } else {
             res.status(500).json({ message: error.message });
         }
