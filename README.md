@@ -29,3 +29,17 @@ Documnetation for this project API's is as
 "http://localhost:5000/api/employee/updateEmployee"
 "http://localhost:5000/api/employee/getAllEmployees"
 "http://localhost:5000/api/employee/getEmployeeById"
+
+# Role API's
+"http://localhost:5000/api/role/createRole"
+"http://localhost:5000/api/role/deleteRole"
+"http://localhost:5000/api/role/updateRole"
+"http://localhost:5000/api/role/getAllRoles"
+"http://localhost:5000/api/role/getRoleById"
+
+# Permission API's
+"http://localhost:5000/api/permission/createPermission"
+"http://localhost:5000/api/permission/deletePermission"
+"http://localhost:5000/api/permission/updatePermission"
+"http://localhost:5000/api/permission/getAllPermissions"
+"http://localhost:5000/api/permission/getPermissionById"
