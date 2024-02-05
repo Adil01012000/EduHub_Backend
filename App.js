@@ -7,10 +7,12 @@ const PORT = process.env.PORT || 5000;
 const user_routes = require("./routes/users");
 const organization_routes = require("./routes/organizations");
 const campuses_routes = require("./routes/campuses");
+const employee_routes = require("./routes/employees");
 
 app.use("/api/user", user_routes);
 app.use("/api/organization", organization_routes);
 app.use("/api/campus", campuses_routes);
+app.use("/api/employee", employee_routes);
 
 const start = async() => {
     try {
