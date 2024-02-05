@@ -1,4 +1,5 @@
 const Employee = require("../models/employee");
+const Organization = require("../models/organization");
 
 // POST employee api
 const createEmployee = async (req, res) => {
@@ -8,8 +9,13 @@ const createEmployee = async (req, res) => {
             return res.status(400).json({ message: "Organization ID is missing!" });
         }
 
-        const campus = await Employee.create({ ...req.body });
-        res.status(200).json({ message: "Employee created successfully", campus });
+        const organization = await Organization.findById(organizationId);
+        if(!organization) {
+            return res.status(404).json({ message: "Organization not found" });
+        }
+
+        const employee = await Employee.create({ ...req.body });
+        res.status(200).json({ message: "Employee created successfully", employee });
     } catch (error) {
         if (error.code === 11000 || error.code === 11001) {
             res.status(400).json({ message: "Duplicate entry. Employee already exists." });

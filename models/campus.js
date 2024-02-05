@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const campusSchema = new mongoose.Schema({
-    id: {
-        type: Number,
+    organization_id: {
+        type: String,
         required: true,
-        unique: true,
+        maxlength:50,
     },
     campus_name: {
         type: String,

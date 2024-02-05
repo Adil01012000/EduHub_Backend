@@ -1,19 +1,26 @@
 const Campus = require("../models/campus");
+const Organization = require("../models/organization");
 
 // POST campus api
 const createCampus = async (req, res) => {
     try {
-        const maxIdCampus = await Campus.findOne({}, { id: 1 }, { sort: { id: -1 }});
-        const newCampusId = maxIdCampus ? maxIdCampus.id + 1 : 1;
+        const organizationId = req.body.organization_id;
+        if(!organizationId) {
+            return res.status(400).json({ message: "Organization ID is missing!" });
+        }
 
-        const campus = await Campus.create({ ...req.body, id: newCampusId });
+        const organization = await Organization.findById(organizationId);
+        if(!organization) {
+            return res.status(404).json({ message: "Organization not found" });
+        }
 
-        res.status(200).json({ message: "Campus created successfully", campus});
+        const campus = await Campus.create({ ...req.body });
+        res.status(200).json({ message: "Campus created successfully", campus });
     } catch (error) {
         if (error.code === 11000 || error.code === 11001) {
-            res.status(400).json({ message: "Duplicate entry. Campus already exists." });
+            res.status(400).json({ message: "Duplicate entry. Employee already exists." });
         } else {
-            res.status(500).json({ message: error.message})
+            res.status(500).json({ message: error.message });
         }
     }
 };
