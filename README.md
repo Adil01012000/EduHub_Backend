@@ -43,3 +43,17 @@ Documnetation for this project API's is as
 "http://localhost:5000/api/permission/updatePermission"
 "http://localhost:5000/api/permission/getAllPermissions"
 "http://localhost:5000/api/permission/getPermissionById"
+
+# Students API's
+"http://localhost:5000/api/student/createStudent"
+"http://localhost:5000/api/student/deleteStudent"
+"http://localhost:5000/api/student/updateStudent"
+"http://localhost:5000/api/student/getAllStudents"
+"http://localhost:5000/api/student/getStudentById"
+
+# Classes API's
+"http://localhost:5000/api/class/createClass"
+"http://localhost:5000/api/class/deleteClass"
+"http://localhost:5000/api/class/updateClass"
+"http://localhost:5000/api/class/getAllClasses"
+"http://localhost:5000/api/class/getClassById" 
