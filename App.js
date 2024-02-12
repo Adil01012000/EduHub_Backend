@@ -13,6 +13,7 @@ const role_routes = require("./routes/roles");
 const permission_routes = require("./routes/permissions");
 const student_routes = require("./routes/students");
 const class_routes = require("./routes/classes");
+const subject_routes = require("./routes/subjects");
 
 app.use("/api/user", user_routes);
 app.use("/api/organization", organization_routes);
@@ -22,6 +23,7 @@ app.use("/api/role", role_routes);
 app.use("/api/permission", permission_routes);
 app.use("/api/student", student_routes);
 app.use("/api/class", class_routes);
+app.use("/api/subject", subject_routes);
 
 const start = async() => {
     try {
