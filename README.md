@@ -57,3 +57,10 @@ Documnetation for this project API's is as
 "http://localhost:5000/api/class/updateClass"
 "http://localhost:5000/api/class/getAllClasses"
 "http://localhost:5000/api/class/getClassById" 
+
+# Subjects API's
+"http://localhost:5000/api/subject/createSubject"
+"http://localhost:5000/api/subject/deleteSubject"
+"http://localhost:5000/api/subject/updateSubject"
+"http://localhost:5000/api/subject/getAllSubjects"
+"http://localhost:5000/api/subject/getSubjectById" 

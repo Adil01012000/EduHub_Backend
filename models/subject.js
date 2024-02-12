@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const subjectSchema = new mongoose.Schema({
     organization_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Organization',
         required: true,
-        maxlength: 50,
     },
     campus_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Campus', 
         required: true,
-        maxlength: 50,
     },
     subject_name: {
         type: String,

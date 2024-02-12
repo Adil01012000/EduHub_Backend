@@ -39,14 +39,24 @@ const createSubject = async (req, res) => {
 // GET subjects api
 const getSubjects = async (req, res) => {
     try {
-        const subjects = await Subject.find();
+        const subjects = await Subject.find().populate('campus_id organization_id');
 
-        res.status(200).json({ subjects });
+        const subjectsWithDetails = subjects.map(subject => ({
+            ...subject.toObject(),
+            campus_id: subject.campus_id._id,
+            organization_id: subject.organization_id._id,
+            campus_details: [ { ...subject.campus_id.toObject() } ],
+            organization_details: [ { ...subject.organization_id.toObject() } ]
+        }));
+
+        res.status(200).json({ subjects: subjectsWithDetails });
     } catch(error){
         console.error(error);
         res.status(500).json({ message: error.message });
     }
 };
+
+
 
 // DELETE sujects api
 const deleteSubject = async (req, res) => {
@@ -102,16 +112,26 @@ const getSubjectById = async (req, res) => {
             return res.status(400).json({ message: "Subject ID is missing!" });
         }
 
-        const subject = await Subject.findById(subjectId);
+        const subject = await Subject.findById(subjectId).populate('campus_id organization_id');
+
         if (!subject){
             return res.status(404).json({ message: "Subject not found" });
         }
 
-        res.status(200).json({ subject });
+        const subjectWithDetails = {
+            ...subject.toObject(),
+            campus_id: subject.campus_id._id,
+            organization_id: subject.organization_id._id,
+            campus_details: { ...subject.campus_id.toObject() },
+            organization_details: { ...subject.organization_id.toObject() }
+        };
+
+        res.status(200).json({ subject: subjectWithDetails });
     } catch(error){
         console.error(error);
         res.status(500).json({ message: error.message });
     }
 };
+
 
 module.exports = { createSubject, getSubjects, deleteSubject, updateSubject, getSubjectById };
