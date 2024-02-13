@@ -1,5 +1,11 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+
+const JWT_SECRET = crypto.randomBytes(32).toString('hex');
 
 // POST user api
 const createUser = async (req, res) => {
@@ -111,4 +117,38 @@ const getUserById = async (req, res) => {
     }
 };
 
-module.exports = { createUser, getAllUsers, deleteUser, updateUser, getUserById };
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid Password" });
+        }
+
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
+        jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+            if (err) throw err;
+            res.status(200).json({ user, token });
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { createUser, getAllUsers, deleteUser, updateUser, getUserById, loginUser };
