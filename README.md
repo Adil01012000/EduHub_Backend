@@ -8,6 +8,7 @@ Documnetation for this project API's is as
 "http://localhost:5000/api/user/updateUser"
 "http://localhost:5000/api/user/getAllUsers"
 "http://localhost:5000/api/user/getUserById"
+"http://localhost:5000/api/user/loginUser"
 
 # Organization API's
 "http://localhost:5000/api/organization/registerOrganization"
@@ -64,3 +65,10 @@ Documnetation for this project API's is as
 "http://localhost:5000/api/subject/updateSubject"
 "http://localhost:5000/api/subject/getAllSubjects"
 "http://localhost:5000/api/subject/getSubjectById" 
+
+# Sections API's
+"http://localhost:5000/api/section/createSection"
+"http://localhost:5000/api/section/deleteSection"
+"http://localhost:5000/api/section/updateSection"
+"http://localhost:5000/api/section/getAllSections"
+"http://localhost:5000/api/section/getSectionById" 
